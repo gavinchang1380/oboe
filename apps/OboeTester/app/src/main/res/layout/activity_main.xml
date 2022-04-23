@@ -47,14 +47,14 @@
             android:text="Test Input" />
 
         <Button
-            android:id="@+id/buttonTapToTone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
+            android:id="@+id/buttonEcho"
             android:layout_gravity="fill"
-            android:backgroundTint="@color/button_tint"
-            android:onClick="onLaunchTapToTone"
-            android:text="Tap to Tone Latency" />
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/button_red"
+            android:onClick="onLaunchEcho"
+            android:text="环回延时" />
 
         <Button
             android:id="@+id/button_rt_latency"
@@ -62,19 +62,19 @@
             android:layout_width="0dp"
             android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/button_tint"
+            android:backgroundTint="@color/button_red"
             android:onClick="onLaunchRoundTripLatency"
-            android:text="Round Trip Latency" />
+            android:text="环回延时(自动测试)" />
 
         <Button
-            android:id="@+id/buttonEcho"
-            android:layout_gravity="fill"
+            android:id="@+id/buttonTapToTone"
             android:layout_width="0dp"
-            android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/button_tint"
-            android:onClick="onLaunchEcho"
-            android:text="Echo Input to Output" />
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:backgroundTint="@color/button_red"
+            android:onClick="onLaunchTapToTone"
+            android:text="热启动播放延时" />
 
         <Button
             android:id="@+id/buttonRecorder"
@@ -278,5 +278,14 @@
         app:layout_constraintEnd_toEndOf="@+id/callbackSize"
         app:layout_constraintStart_toStartOf="@+id/deviceView"
         app:layout_constraintTop_toBottomOf="@+id/deviceView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tips:热启动播放延时Log关键字:[Benchmark]"
+        app:layout_constraintStart_toStartOf="@+id/text_build_info"
+        app:layout_constraintTop_toBottomOf="@+id/text_build_info" />
+
 
 </android.support.constraint.ConstraintLayout>
