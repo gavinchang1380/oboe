@@ -32,7 +32,7 @@ public class BufferSizeView extends LinearLayout {
 
     private static final int FADER_THRESHOLD_MAX = 1000; // must match layout
     private static final int USE_FADER = -1;
-    private static final int DEFAULT_NUM_BURSTS = 2;
+    private static final int DEFAULT_NUM_BURSTS = 1;
     private TextView mTextLabel;
     private SeekBar mFader;
     private ExponentialTaper mTaper;
