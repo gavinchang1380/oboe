@@ -61,6 +61,10 @@
             android:label="@string/title_activity_output_latency"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".TapToToneColdActivity"
+            android:label="冷启动播放延时"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".RecorderActivity"
             android:label="@string/title_activity_recorder"
             android:screenOrientation="portrait" />

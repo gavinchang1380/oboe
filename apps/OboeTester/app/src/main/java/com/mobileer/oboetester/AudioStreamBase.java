@@ -208,5 +208,4 @@ public abstract class AudioStreamBase {
     public void setWorkload(double workload) {}
 
     public abstract int getXRunCount();
-
 }

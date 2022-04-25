@@ -77,6 +77,16 @@
             android:text="热启动播放延时" />
 
         <Button
+            android:id="@+id/buttonTapToToneCold"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:backgroundTint="@color/button_red"
+            android:onClick="onLaunchTapToToneCold"
+            android:text="冷启动播放延时" />
+
+        <Button
             android:id="@+id/buttonRecorder"
             android:layout_gravity="fill"
             android:layout_width="0dp"
