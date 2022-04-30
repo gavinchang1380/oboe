@@ -50,10 +50,18 @@
         android:id="@+id/helpView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="2"
+        android:lines="1"
         android:textSize="18sp"
         android:textStyle="bold"
         android:text="请点击Trigger按钮" />
+
+    <TextView
+        android:id="@+id/coldTimeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="" />
 
 </LinearLayout>
 

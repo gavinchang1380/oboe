@@ -262,6 +262,18 @@ abstract class OboeAudioStream extends AudioStreamBase {
     public native String getCallbackTimeString();
 
     @Override
+    public String getColdStartOutputStr() {
+        return getColdStartOutputString();
+    }
+    public native String getColdStartOutputString();
+
+    @Override
+    public String getColdStartInputStr() {
+        return getColdStartInputString();
+    }
+    public native String getColdStartInputString();
+
+    @Override
     public native void setWorkload(double workload);
 
     @Override

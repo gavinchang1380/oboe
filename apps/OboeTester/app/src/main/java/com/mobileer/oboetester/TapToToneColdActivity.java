@@ -55,6 +55,7 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
 
     private Button mTriggerButton;
     private TextView mHelpView;
+    private TextView mColdTimeView;
 
     private MidiOutputPortConnectionSelector mPortSelector;
     private final MyNoteListener mTestListener = new MyNoteListener();
@@ -85,6 +86,7 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
         updateButtons(true);
 
         mHelpView = (TextView)findViewById(R.id.helpView);
+        mColdTimeView = (TextView)findViewById(R.id.coldTimeView);
 
         updateEnabledWidgets();
     }
@@ -268,9 +270,10 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
     }
 
     private void closeTest() {
+        mHelpView.setText("等待硬件关闭");
+        mColdTimeView.setText(mAudioOutTester.getCurrentAudioStream().getColdStartOutputStr());
         stopAudio();
         closeAudio();
-        mHelpView.setText("等待硬件关闭");
         mHandler.postDelayed(this::enableTest, ENABLE_TEST_MSEC);
     }
 

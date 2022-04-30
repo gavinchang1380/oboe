@@ -24,6 +24,7 @@
 #include <vector>
 
 #include "common/OboeDebug.h"
+#include <common/AudioClock.h>
 #include "oboe/Oboe.h"
 
 #include "aaudio/AAudioExtensions.h"
@@ -149,6 +150,16 @@ public:
 
     std::string getCallbackTimeString() {
         return oboeCallbackProxy.getCallbackTimeString();
+    }
+
+    std::string getColdStartOutputString() {
+        char buff[100];
+        snprintf(buff, sizeof(buff), "Open时延: %.1fms\nStart时延：%.1fms\nOpen到0帧出现在HAL时延：%dms\n",
+                 (float)(mOutputAfterOpenedAt - mOutputOpenedAt) / oboe::kNanosPerMillisecond,
+                 (float)(mOutputAfterStartedAt - mOutputAfterOpenedAt) / oboe::kNanosPerMillisecond,
+                 getColdStartOutputMillis());
+        std::string buffAsStr = buff;
+        return buffAsStr;
     }
 
     void setWorkload(double workload) {
@@ -308,9 +319,15 @@ protected:
     std::atomic<bool>            threadEnabled{false};
     std::thread                 *dataThread = nullptr; // FIXME never gets deleted
 
+    int64_t mInputAfterStartedAt = 0;
+    int64_t mOutputAfterStartedAt = 0;
+
 private:
     int64_t mInputOpenedAt = 0;
     int64_t mOutputOpenedAt = 0;
+
+    int64_t mInputAfterOpenedAt = 0;
+    int64_t mOutputAfterOpenedAt = 0;
 };
 
 /**
@@ -393,7 +410,9 @@ public:
     void close(int32_t streamIndex) override;
 
     oboe::Result startStreams() override {
-        return getOutputStream()->start();
+        oboe::Result ret = getOutputStream()->start();
+        mOutputAfterStartedAt = oboe::AudioClock::getNanoseconds();
+        return ret;
     }
 
     void configureForStart() override;

@@ -219,6 +219,13 @@ int ActivityContext::open(jint nativeApi,
     // Open a stream based on the builder settings.
     std::shared_ptr<oboe::AudioStream> oboeStream;
     Result result = builder.openStream(oboeStream);
+    // Record time for after opened.
+    if (isInput) {
+        mInputAfterOpenedAt = oboe::AudioClock::getNanoseconds();
+    } else {
+        mOutputAfterOpenedAt = oboe::AudioClock::getNanoseconds();
+    }
+
     AAudioExtensions::getInstance().setMMapEnabled(oldMMapEnabled);
     if (result != Result::OK) {
         freeStreamIndex(streamIndex);

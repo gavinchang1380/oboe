@@ -199,6 +199,10 @@ public abstract class AudioStreamBase {
 
     public String getCallbackTimeStr() { return "?"; };
 
+    public String getColdStartOutputStr() { return "?"; };
+
+    public String getColdStartInputStr() { return "?"; };
+
     public int getState() { return -1; }
 
     public boolean isThresholdSupported() {
