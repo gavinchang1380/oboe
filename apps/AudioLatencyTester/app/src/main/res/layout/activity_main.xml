@@ -75,7 +75,7 @@
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTapToTone"
             android:textAllCaps="false"
-            android:text="TapTone延时" />
+            android:text="热启动TapTone延时" />
 
         <Button
             android:id="@+id/buttonTapToToneCold"
@@ -86,7 +86,18 @@
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTapToToneCold"
             android:textAllCaps="false"
-            android:text="TapTone延时(冷启动)" />
+            android:text="冷启动TapTone延时" />
+
+        <Button
+            android:id="@+id/buttonExternalTap"
+            android:layout_gravity="fill"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/button_tint"
+            android:onClick="onLaunchExternalTapTest"
+            android:textAllCaps="false"
+            android:text="外部TapTone延时" />
 
         <Button
             android:id="@+id/buttonTestInputCold"

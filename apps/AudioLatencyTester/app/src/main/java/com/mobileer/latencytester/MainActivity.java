@@ -316,4 +316,8 @@ public class MainActivity extends BaseOboeTesterActivity {
     public void onLaunchTestInputCold(View view) {
         launchTestThatDoesRecording(TestInputColdActivity.class);
     }
+
+    public void onLaunchExternalTapTest(View view) {
+        launchTestThatDoesRecording(ExternalTapToToneActivity.class);
+    }
 }

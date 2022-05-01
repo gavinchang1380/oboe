@@ -171,7 +171,7 @@
     <string name="title_activity_main">Test Oboe</string>
     <string name="title_activity_test_output">Test Output</string>
     <string name="title_activity_test_input">Test Input</string>
-    <string name="title_activity_output_latency">TapTone延时</string>
+    <string name="title_activity_output_latency">热启动TapTone延时</string>
     <string name="title_activity_recorder">Recorder</string>
     <string name="title_activity_echo">环回延时</string>
     <string name="title_activity_rt_latency">环回延时(自动测试)</string>
@@ -197,7 +197,7 @@
     <string name="skipTest">Skip</string>
     <string name="test_datapath_instructions">Disconnect all headsets.\nIn quiet room, volume up, [START]</string>
     <string name="test_disconnect_instructions">Disconnect all headsets.\nPress [START]</string>
-    <string name="title_external_tap">External Tap To Tone</string>
+    <string name="title_external_tap">外部TapTone延时</string>
     <string name="title_plug_latency">Plug Latency Test</string>
     <string name="analyze">Analyze</string>
 
