@@ -98,6 +98,7 @@ public class TestInputColdActivity extends TestAudioActivity {
 
         BufferSizeView bufferSizeView = findViewById(R.id.buffer_size_view);
         bufferSizeView.setVisibility(View.GONE);
+        mHelpView.setText("1、先对Mic吹气，然后点击Trigger按钮，此时获取信号值时间为冷启动时延；\n2、因为部分手机有缓存，建议正式测试前前测试一遍确保提示超时！");
 
         updateButtons(true);
         updateEnabledWidgets();
