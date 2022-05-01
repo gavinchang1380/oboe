@@ -468,7 +468,9 @@ abstract class TestAudioActivity extends Activity {
         StreamConfiguration actualConfig = streamContext.tester.actualConfiguration;
         requestedConfig.setFramesPerBurst(audioManagerFramesPerBurst);
 
+        Log.d(TAG, "[Benchmark]To open audiostream");
         streamContext.tester.open(); // OPEN the stream
+        Log.d(TAG, "[Benchmark]audiostream opened");
 
         mSampleRate = actualConfig.getSampleRate();
         mAudioState = AUDIO_STATE_OPEN;
@@ -489,6 +491,7 @@ abstract class TestAudioActivity extends Activity {
     private native int getFramesPerCallback();
 
     public void startAudio() throws IOException {
+        Log.d(TAG, "[Benchmark]To start audiostream");
         int result = startNative();
         if (result < 0) {
             showErrorToast("Start failed with " + result);
@@ -503,6 +506,7 @@ abstract class TestAudioActivity extends Activity {
             mAudioState = AUDIO_STATE_STARTED;
             updateEnabledWidgets();
         }
+        Log.d(TAG, "[Benchmark]audiostream started");
     }
 
     protected void toastPauseError(int result) {

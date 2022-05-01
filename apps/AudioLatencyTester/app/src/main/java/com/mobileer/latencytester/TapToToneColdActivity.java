@@ -47,6 +47,7 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
     // Names from obsolete version of Oboetester.
     public static final String OLD_PRODUCT_NAME = "AudioLatencyTester";
     public static final String OLD_MANUFACTURER_NAME = "AndroidTest";
+    public static final long POLL_DURATION_MILLIS = 1;
 
     private MidiManager mMidiManager;
     private MidiInputPort mInputPort;
@@ -96,7 +97,6 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
     }
 
     void trigger() {
-        Log.d(TAG, "[Benchmark]Tap to Tone Triggered");
         mAudioOutTester.trigger();
     }
 
@@ -163,8 +163,10 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
         @Override
         public void onNoteOn(final int pitch) {
             runOnUiThread(() -> {
-                trigger();
-                mStreamContexts.get(0).configurationView.setStatusText("MIDI pitch = " + pitch);
+                if (mTriggerButton.isEnabled()) {
+                    mTriggerButton.callOnClick();
+                    mStreamContexts.get(0).configurationView.setStatusText("MIDI pitch = " + pitch);
+                }
             });
         }
     }
@@ -248,32 +250,38 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
         return super.onOptionsItemSelected(item);
     }
 
-    public void triggerTest(View view) {
-        updateButtons(false);
+    private void displayLatencyMs() {
         try {
+            StringBuilder sb = new StringBuilder();
+            long startMillis = System.currentTimeMillis();
+
             openAudio();
-        } catch (IOException e) {
+            sb.append("Opened at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+
+            startAudio();
+            while (mAudioOutTester.getCurrentAudioStream().getState() == StreamConfiguration.STREAM_STATE_STARTING) {
+                Thread.sleep(POLL_DURATION_MILLIS);
+            }
+            sb.append("Started at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+
+            mColdTimeView.setText(sb.toString());
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            showErrorToast("Open audio failed!");
-            return;
         }
-        try {
-            super.startAudio();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showErrorToast("Start audio failed! " + e.getMessage());
-            return;
-        }
+    }
+
+    public void triggerTest(View view) {
         trigger();
+        displayLatencyMs();
         mHelpView.setText("播放中");
+        updateButtons(false);
         mHandler.postDelayed(this::closeTest, CLOSE_TEST_MSEC);
     }
 
     private void closeTest() {
-        mHelpView.setText("等待硬件关闭");
-        mColdTimeView.setText(mAudioOutTester.getCurrentAudioStream().getColdStartOutputStr());
         stopAudio();
         closeAudio();
+        mHelpView.setText("等待硬件关闭");
         mHandler.postDelayed(this::enableTest, ENABLE_TEST_MSEC);
     }
 

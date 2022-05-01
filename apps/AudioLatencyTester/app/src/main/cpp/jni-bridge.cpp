@@ -432,11 +432,6 @@ Java_com_mobileer_latencytester_OboeAudioStream_getCallbackTimeString(JNIEnv *en
     return env->NewStringUTF(engine.getCurrentActivity()->getCallbackTimeString().c_str());
 }
 
-JNIEXPORT jstring JNICALL
-Java_com_mobileer_latencytester_OboeAudioStream_getColdStartOutputString(JNIEnv *env, jobject instance) {
-    return env->NewStringUTF(engine.getCurrentActivity()->getColdStartOutputString().c_str());
-}
-
 JNIEXPORT void JNICALL
 Java_com_mobileer_latencytester_OboeAudioStream_setWorkload(
         JNIEnv *env, jobject, jdouble workload) {

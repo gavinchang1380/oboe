@@ -32,7 +32,7 @@ SawPingGenerator::~SawPingGenerator() { }
 
 void SawPingGenerator::reset() {
     FlowGraphNode::reset();
-    mAcknowledgeCount.store(mRequestCount.load());
+//    mAcknowledgeCount.store(mRequestCount.load());
 }
 
 int32_t SawPingGenerator::onProcess(int numFrames) {
