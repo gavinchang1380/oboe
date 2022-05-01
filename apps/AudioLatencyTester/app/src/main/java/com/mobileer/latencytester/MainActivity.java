@@ -97,8 +97,9 @@ public class MainActivity extends BaseOboeTesterActivity {
             int oboeMajor = (oboeVersion >> 24) & 0xFF;
             int oboeMinor = (oboeVersion >> 16) & 0xFF;
             int oboePatch = oboeVersion & 0xFF;
-            mVersionText = "OboeTester (" + pinfo.versionCode + ") v " + pinfo.versionName
-                    + ", Oboe v " + oboeMajor + "." + oboeMinor + "." + oboePatch;
+            mVersionText = "应用版本(" + pinfo.versionCode + ")v" + pinfo.versionName
+                    + ", Oboe版本v" + oboeMajor + "." + oboeMinor + "." + oboePatch + "\nAndroid版本:"
+                    + Build.VERSION.RELEASE + ", SDK版本:" + Build.VERSION.SDK_INT + ", 系统版本:" + Build.ID;
             mVersionTextView.setText(mVersionText);
         } catch (PackageManager.NameNotFoundException e) {
             mVersionTextView.setText(e.getMessage());

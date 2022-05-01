@@ -289,13 +289,4 @@
         app:layout_constraintStart_toStartOf="@+id/deviceView"
         app:layout_constraintTop_toBottomOf="@+id/deviceView" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Tips:热启动播放延时Log关键字:[Benchmark]"
-        app:layout_constraintStart_toStartOf="@+id/text_build_info"
-        app:layout_constraintTop_toBottomOf="@+id/text_build_info" />
-
-
 </android.support.constraint.ConstraintLayout>

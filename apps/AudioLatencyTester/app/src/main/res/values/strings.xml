@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Oboe Tester</string>
+    <string name="app_name">音频延迟测试</string>
     <string name="init_device">Device:</string>
     <string name="init_status">Status:</string>
     <string name="tap_help">Click START button!</string>
