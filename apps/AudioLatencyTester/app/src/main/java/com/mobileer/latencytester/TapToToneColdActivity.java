@@ -88,6 +88,7 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
 
         mHelpView = (TextView)findViewById(R.id.helpView);
         mColdTimeView = (TextView)findViewById(R.id.coldTimeView);
+        mHelpView.setText("请点击Trigger按钮，并使用另一台手机的外部TapTone延时测试得到测试结果");
 
         updateEnabledWidgets();
     }
@@ -287,6 +288,6 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
 
     private void enableTest() {
         updateButtons(true);
-        mHelpView.setText("请点击Trigger按钮");
+        mHelpView.setText("请点击Trigger按钮，并使用另一台手机的外部TapTone延时测试得到测试结果");
     }
 }
