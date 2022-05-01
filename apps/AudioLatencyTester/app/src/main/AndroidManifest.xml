@@ -57,12 +57,16 @@
             android:label="@string/title_activity_test_input"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".TestInputColdActivity"
+            android:label="冷启动录音延时"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".TapToToneActivity"
             android:label="@string/title_activity_output_latency"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TapToToneColdActivity"
-            android:label="冷启动播放延时"
+            android:label="TapTone延时(冷启动)"
             android:screenOrientation="portrait" />
         <activity
             android:name=".RecorderActivity"

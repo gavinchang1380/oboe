@@ -62,7 +62,7 @@ public:
 private:
     static constexpr double kDefaultDecay = 0.99f;
 
-    double mLevel = 0.0;
+    volatile double mLevel = 0.0;
     double mDecay = kDefaultDecay;
 };
 #endif //ANALYZER_PEAK_DETECTOR_H

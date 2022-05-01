@@ -171,7 +171,7 @@
     <string name="title_activity_main">Test Oboe</string>
     <string name="title_activity_test_output">Test Output</string>
     <string name="title_activity_test_input">Test Input</string>
-    <string name="title_activity_output_latency">热启动播放延时</string>
+    <string name="title_activity_output_latency">TapTone延时</string>
     <string name="title_activity_recorder">Recorder</string>
     <string name="title_activity_echo">环回延时</string>
     <string name="title_activity_rt_latency">环回延时(自动测试)</string>

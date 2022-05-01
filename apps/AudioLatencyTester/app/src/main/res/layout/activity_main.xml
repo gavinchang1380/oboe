@@ -52,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/button_red"
+            android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchEcho"
             android:text="环回延时" />
 
@@ -62,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_columnWeight="1"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/button_red"
+            android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchRoundTripLatency"
             android:text="环回延时(自动测试)" />
 
@@ -72,9 +72,10 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
-            android:backgroundTint="@color/button_red"
+            android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTapToTone"
-            android:text="热启动播放延时" />
+            android:textAllCaps="false"
+            android:text="TapTone延时" />
 
         <Button
             android:id="@+id/buttonTapToToneCold"
@@ -82,9 +83,20 @@
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_gravity="fill"
-            android:backgroundTint="@color/button_red"
+            android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTapToToneCold"
-            android:text="冷启动播放延时" />
+            android:textAllCaps="false"
+            android:text="TapTone延时(冷启动)" />
+
+        <Button
+            android:id="@+id/buttonTestInputCold"
+            android:layout_gravity="fill"
+            android:layout_width="0dp"
+            android:layout_columnWeight="1"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/button_tint"
+            android:onClick="onLaunchTestInputCold"
+            android:text="冷启动录音延时" />
 
         <Button
             android:id="@+id/buttonRecorder"

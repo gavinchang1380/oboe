@@ -35,7 +35,7 @@ class InputStreamCallbackAnalyzer : public OboeTesterStreamCallback {
 public:
 
     void reset() {
-        for (auto detector : mPeakDetectors) {
+        for (auto &detector : mPeakDetectors) {
             detector.reset();
         }
         OboeTesterStreamCallback::reset();

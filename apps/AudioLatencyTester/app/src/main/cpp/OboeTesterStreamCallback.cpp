@@ -28,7 +28,7 @@ void OboeTesterStreamCallback::printScheduler() {
     int scheduler = sched_getscheduler(gettid());
     if (scheduler != mPreviousScheduler) {
         int schedulerType = scheduler & 0xFFFF; // mask off high flags
-        LOGD("callback CPU scheduler = 0x%08x = %s",
+        LOGD("[Benchmark]callback CPU scheduler = 0x%08x = %s",
              scheduler,
              ((schedulerType == SCHED_FIFO) ? "SCHED_FIFO" :
               ((schedulerType == SCHED_OTHER) ? "SCHED_OTHER" :

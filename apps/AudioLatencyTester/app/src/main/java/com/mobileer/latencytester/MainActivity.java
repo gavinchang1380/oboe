@@ -99,7 +99,7 @@ public class MainActivity extends BaseOboeTesterActivity {
             int oboePatch = oboeVersion & 0xFF;
             mVersionText = "应用版本(" + pinfo.versionCode + ")v" + pinfo.versionName
                     + ", Oboe版本v" + oboeMajor + "." + oboeMinor + "." + oboePatch + "\nAndroid版本:"
-                    + Build.VERSION.RELEASE + ", SDK版本:" + Build.VERSION.SDK_INT + ", 系统版本:" + Build.ID;
+                    + Build.VERSION.RELEASE + ", Android API版本:" + Build.VERSION.SDK_INT;
             mVersionTextView.setText(mVersionText);
         } catch (PackageManager.NameNotFoundException e) {
             mVersionTextView.setText(e.getMessage());
@@ -311,5 +311,9 @@ public class MainActivity extends BaseOboeTesterActivity {
         } else {
             myAudioMgr.stopBluetoothSco();
         }
+    }
+
+    public void onLaunchTestInputCold(View view) {
+        launchTestThatDoesRecording(TestInputColdActivity.class);
     }
 }
