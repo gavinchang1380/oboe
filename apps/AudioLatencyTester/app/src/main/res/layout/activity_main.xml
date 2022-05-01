@@ -34,6 +34,7 @@
             android:layout_gravity="fill"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTestOutput"
+            android:visibility="gone"
             android:text="Test Output" />
 
         <Button
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTestInput"
+            android:visibility="gone"
             android:text="Test Input" />
 
         <Button
@@ -75,6 +77,7 @@
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTapToTone"
             android:textAllCaps="false"
+
             android:text="热启动TapTone延时" />
 
         <Button
@@ -117,6 +120,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchRecorder"
+            android:visibility="gone"
             android:text="Record and Play"
             />
 
@@ -128,6 +132,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchManualGlitchTest"
+            android:visibility="gone"
             android:text="Glitch Test" />
 
         <Button
@@ -138,6 +143,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchAutoGlitchTest"
+            android:visibility="gone"
             android:text="Auto Glitch Test" />
 
         <Button
@@ -148,6 +154,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTestDisconnect"
+            android:visibility="gone"
             android:text="Test Disconnect" />
 
         <Button
@@ -158,6 +165,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTestDeviceReport"
+            android:visibility="gone"
             android:text="@string/title_report_devices" />
 
         <Button
@@ -168,6 +176,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchTestDataPaths"
+            android:visibility="gone"
             android:text="Data Paths" />
 
         <Button
@@ -178,6 +187,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/button_tint"
             android:onClick="onLaunchExtratests"
+            android:visibility="gone"
             android:text="Extras..." />
 
     </GridLayout>
