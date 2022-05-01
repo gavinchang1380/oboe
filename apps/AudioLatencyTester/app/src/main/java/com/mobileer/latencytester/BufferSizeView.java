@@ -19,13 +19,11 @@ package com.mobileer.latencytester;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-
-
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.LinearLayout;
 
 public class BufferSizeView extends LinearLayout {
     private OboeAudioStream mStream;

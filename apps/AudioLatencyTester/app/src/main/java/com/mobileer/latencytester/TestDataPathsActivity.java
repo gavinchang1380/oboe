@@ -16,22 +16,19 @@
 
 package com.mobileer.latencytester;
 
-import android.content.Intent;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import com.mobileer.audio_device.AudioDeviceInfoConverter;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**

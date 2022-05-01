@@ -1,7 +1,5 @@
 package com.mobileer.latencytester;
 
-import android.content.Intent;
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 

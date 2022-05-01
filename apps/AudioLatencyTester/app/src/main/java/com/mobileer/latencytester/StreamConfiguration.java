@@ -16,8 +16,6 @@
 
 package com.mobileer.latencytester;
 
-import android.content.res.Resources;
-
 import java.util.HashMap;
 
 /**

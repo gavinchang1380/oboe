@@ -25,9 +25,6 @@ import android.media.AudioManager;
 import android.media.MicrophoneInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.view.View;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mobileer.audio_device.AudioDeviceInfoConverter;
