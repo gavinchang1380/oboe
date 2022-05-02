@@ -77,6 +77,7 @@ abstract class TestAudioActivity extends Activity {
     private int mSampleRate;
     private int mSingleTestIndex = -1;
     private static boolean mBackgroundEnabled;
+    private static boolean mUseJavaInterface;
 
     public String getTestName() {
         return "TestAudio";
@@ -111,7 +112,7 @@ abstract class TestAudioActivity extends Activity {
                     if (streamContext.configurationView != null) {
                         // Handler runs this on the main UI thread.
                         int framesPerBurst = streamContext.tester.getCurrentAudioStream().getFramesPerBurst();
-                        status.framesPerCallback = getFramesPerCallback();
+                        status.framesPerCallback = getFramesPerCallbackWrapper();
                         String msg = "";
                         msg += "timestamp.latency = " + latencyStatistics.dump() + "\n";
                         msg += status.dump(framesPerBurst);
@@ -155,6 +156,12 @@ abstract class TestAudioActivity extends Activity {
     public static boolean isBackgroundEnabled() {
         return mBackgroundEnabled;
     }
+    public static void setUseJavaInterface(boolean useJavaInterface) {
+        mUseJavaInterface = useJavaInterface;
+    }
+    public static boolean isUseJavaInterface() {
+        return mUseJavaInterface;
+    }
 
     public void onStreamClosed() {
     }
@@ -192,7 +199,7 @@ abstract class TestAudioActivity extends Activity {
     protected void onStart() {
         super.onStart();
         resetConfiguration();
-        setActivityType(getActivityType());
+        setActivityTypeWrapper(getActivityType());
     }
 
     protected void resetConfiguration() {
@@ -214,6 +221,8 @@ abstract class TestAudioActivity extends Activity {
             onStopTest();
         }
         mAudioState = AUDIO_STATE_CLOSED;
+        AudioInputTester.release();
+        AudioOutputTester.release();
         super.onDestroy();
     }
 
@@ -485,14 +494,53 @@ abstract class TestAudioActivity extends Activity {
 
     // Native methods
     private native int startNative();
+    private int start() {
+        if (TestAudioActivity.isUseJavaInterface()) {
+            return AudioContext.getInstance().getCurrentActivity().start();
+        } else {
+            return startNative();
+        }
+    }
+
     private native int pauseNative();
+    private int pause() {
+        if (TestAudioActivity.isUseJavaInterface()) {
+            return AudioContext.getInstance().getCurrentActivity().pause();
+        } else {
+            return pauseNative();
+        }
+    }
+
     private native int stopNative();
+    private int stop() {
+        if (TestAudioActivity.isUseJavaInterface()) {
+            return AudioContext.getInstance().getCurrentActivity().stop();
+        } else {
+            return stopNative();
+        }
+    }
+
     protected native void setActivityType(int activityType);
+    private void setActivityTypeWrapper(int activityType) {
+        if (TestAudioActivity.isUseJavaInterface()) {
+            AudioContext.getInstance().setActivityType(activityType);
+        } else {
+            setActivityType(activityType);
+        }
+    }
+
     private native int getFramesPerCallback();
+    private int getFramesPerCallbackWrapper() {
+        if (TestAudioActivity.isUseJavaInterface()) {
+            return AudioContext.getInstance().getCurrentActivity().getFramesPerCallback();
+        } else {
+            return getFramesPerCallback();
+        }
+    }
 
     public void startAudio() throws IOException {
         Log.d(TAG, "[Benchmark]To start audiostream");
-        int result = startNative();
+        int result = start();
         if (result < 0) {
             showErrorToast("Start failed with " + result);
             throw new IOException("startNative returned " + result);
@@ -514,7 +562,7 @@ abstract class TestAudioActivity extends Activity {
     }
 
     public void pauseAudio() {
-        int result = pauseNative();
+        int result = pause();
         if (result < 0) {
             toastPauseError(result);
         } else {
@@ -524,7 +572,7 @@ abstract class TestAudioActivity extends Activity {
     }
 
     public void stopAudio() {
-        int result = stopNative();
+        int result = stop();
         if (result < 0) {
             showErrorToast("Stop failed with " + result);
         } else {
@@ -546,7 +594,7 @@ abstract class TestAudioActivity extends Activity {
     }
 
     public void stopAudioQuiet() {
-        stopNative();
+        stop();
         mAudioState = AUDIO_STATE_STOPPED;
         updateEnabledWidgets();
     }

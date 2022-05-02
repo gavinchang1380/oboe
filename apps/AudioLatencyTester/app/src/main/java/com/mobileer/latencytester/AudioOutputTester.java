@@ -20,7 +20,7 @@ import android.util.Log;
 
 public class AudioOutputTester extends AudioStreamTester {
 
-    protected OboeAudioOutputStream mOboeAudioOutputStream;
+    protected AudioOutputStream mAudioOutputStream;
 
     private static AudioOutputTester mInstance;
 
@@ -31,27 +31,35 @@ public class AudioOutputTester extends AudioStreamTester {
         return mInstance;
     }
 
+    public static synchronized void release() {
+        mInstance = null;
+    }
+
     private AudioOutputTester() {
         super();
         Log.i(TapToToneActivity.TAG, "create OboeAudioOutputStream ---------");
-        mOboeAudioOutputStream = new OboeAudioOutputStream();
-        mCurrentAudioStream = mOboeAudioOutputStream;
+        if (TestAudioActivity.isUseJavaInterface()) {
+            mCurrentAudioStream = new JavaAudioOutputStream();
+        } else {
+            mCurrentAudioStream = new OboeAudioOutputStream();
+        }
+        mAudioOutputStream = (AudioOutputStream)mCurrentAudioStream;
         requestedConfiguration.setDirection(StreamConfiguration.DIRECTION_OUTPUT);
     }
 
     public void trigger() {
-        mOboeAudioOutputStream.trigger();
+        mAudioOutputStream.trigger();
     }
 
     public void setChannelEnabled(int channelIndex, boolean enabled)  {
-        mOboeAudioOutputStream.setChannelEnabled(channelIndex, enabled);
+        mAudioOutputStream.setChannelEnabled(channelIndex, enabled);
     }
 
     public void setSignalType(int type) {
-        mOboeAudioOutputStream.setSignalType(type);
+        mAudioOutputStream.setSignalType(type);
     }
 
-    public int getLastErrorCallbackResult() {return mOboeAudioOutputStream.getLastErrorCallbackResult();};
+    public int getLastErrorCallbackResult() {return mCurrentAudioStream.getLastErrorCallbackResult();};
 
-    public long getFramesRead() {return mOboeAudioOutputStream.getFramesRead();};
+    public long getFramesRead() {return mCurrentAudioStream.getFramesRead();};
 }

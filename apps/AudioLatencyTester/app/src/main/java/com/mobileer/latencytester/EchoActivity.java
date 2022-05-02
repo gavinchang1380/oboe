@@ -156,7 +156,7 @@ public class EchoActivity extends TestInputActivity {
                 MIN_DELAY_TIME_SECONDS,
                 MAX_DELAY_TIME_SECONDS,
                 100.0);
-        mFaderDelayTime.setProgress(MAX_DELAY_TIME_PROGRESS / 2);
+        mFaderDelayTime.setProgress(0);
 
         hideSettingsViews();
     }

@@ -19,7 +19,7 @@ package com.mobileer.latencytester;
 /**
  * Native synthesizer and audio output.
  */
-public class OboeAudioOutputStream extends OboeAudioStream {
+class OboeAudioOutputStream extends OboeAudioStream implements AudioOutputStream {
 
     @Override
     public boolean isInput() {

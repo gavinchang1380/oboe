@@ -54,7 +54,7 @@ abstract class TestOutputActivityBase extends TestAudioActivity {
     public void openAudio() throws IOException {
         super.openAudio();
         if (mBufferSizeView != null) {
-            mBufferSizeView.onStreamOpened((OboeAudioStream) mAudioOutTester.getCurrentAudioStream());
+            mBufferSizeView.onStreamOpened(mAudioOutTester.getCurrentAudioStream());
         }
     }
 

@@ -189,8 +189,14 @@ public class StreamConfigurationView extends LinearLayout {
 
         mActualPerformanceView = (TextView) findViewById(R.id.actualPerformanceMode);
         mPerformanceSpinner = (Spinner) findViewById(R.id.spinnerPerformanceMode);
-        mPerformanceSpinner.setSelection(StreamConfiguration.PERFORMANCE_MODE_LOW_LATENCY
-                - StreamConfiguration.PERFORMANCE_MODE_NONE);
+
+        if (TestAudioActivity.isUseJavaInterface()) {
+            mPerformanceSpinner.setSelection(StreamConfiguration.PERFORMANCE_MODE_NONE
+                    - StreamConfiguration.PERFORMANCE_MODE_NONE);
+        } else {
+            mPerformanceSpinner.setSelection(StreamConfiguration.PERFORMANCE_MODE_LOW_LATENCY
+                    - StreamConfiguration.PERFORMANCE_MODE_NONE);
+        }
 
         mInputPresetTableRow = (TableRow) findViewById(R.id.rowInputPreset);
         mActualInputPresetView = (TextView) findViewById(R.id.actualInputPreset);

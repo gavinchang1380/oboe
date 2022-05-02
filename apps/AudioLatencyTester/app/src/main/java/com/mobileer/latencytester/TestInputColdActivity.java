@@ -283,7 +283,7 @@ public class TestInputColdActivity extends TestAudioActivity {
             }
             sb.append("Started at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
 
-            while (mAudioInputTester.getPeakLevel(0) < 0.2 && mAudioInputTester.getPeakLevel(1) < 0.2 && (System.currentTimeMillis() - startMillis) <= 1000) {  // -26dB
+            while (mAudioInputTester.getPeakLevelWrapper(0) < 0.2 && mAudioInputTester.getPeakLevelWrapper(1) < 0.2 && (System.currentTimeMillis() - startMillis) <= 1000) {  // -26dB
                 Thread.sleep(POLL_DURATION_MILLIS);
             }
             if (System.currentTimeMillis() - startMillis > 1000) {

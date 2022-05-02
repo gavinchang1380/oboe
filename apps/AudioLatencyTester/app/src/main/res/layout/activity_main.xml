@@ -199,6 +199,7 @@
         android:layout_height="wrap_content"
         android:checked="true"
         android:onClick="onUseCallbackClicked"
+        android:enabled="false"
         android:text="Use Callback"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
@@ -234,6 +235,7 @@
         android:checked="false"
         android:onClick="onSetSpeakerphoneOn"
         android:text="setSpeakerphoneOn/Off()"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/useCallback"
         app:layout_constraintTop_toBottomOf="@+id/useCallback" />
 
@@ -242,6 +244,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/setSpeakerphoneOn"
         app:layout_constraintTop_toBottomOf="@+id/setSpeakerphoneOn"
         >
@@ -270,6 +273,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:checked="false"
+        android:visibility="gone"
         android:text="enable Oboe workarounds"
         app:layout_constraintStart_toStartOf="@+id/layoutBluetoothSco"
         app:layout_constraintTop_toBottomOf="@+id/layoutBluetoothSco" />
@@ -280,6 +284,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:checked="false"
+        android:visibility="gone"
         android:text="enable background operation"
         app:layout_constraintStart_toStartOf="@+id/boxEnableWorkarounds"
         app:layout_constraintTop_toBottomOf="@+id/boxEnableWorkarounds" />
@@ -290,6 +295,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mode:"
+        android:visibility="gone"
         app:layout_constraintBaseline_toBaselineOf="@+id/spinnerAudioMode"
         app:layout_constraintStart_toStartOf="@+id/boxEnableBackground" />
 
@@ -299,8 +305,19 @@
         android:layout_height="wrap_content"
         android:entries="@array/audio_modes"
         android:prompt="@string/audio_mode_prompt"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toBottomOf="@+id/boxEnableBackground" />
+
+    <CheckBox
+        android:id="@+id/useJavaInterface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onUseJavaInterfaceClicked"
+        android:text="使用AudioTrack/AudioRecord代替Oboe"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAudioMode" />
+
 
     <TextView
         android:id="@+id/deviceView"
@@ -308,8 +325,8 @@
         android:layout_height="wrap_content"
         android:lines="1"
         android:text="@string/init_device"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerAudioMode" />
+        app:layout_constraintStart_toStartOf="@+id/useJavaInterface"
+        app:layout_constraintTop_toBottomOf="@+id/useJavaInterface" />
 
     <TextView
         android:id="@+id/text_build_info"

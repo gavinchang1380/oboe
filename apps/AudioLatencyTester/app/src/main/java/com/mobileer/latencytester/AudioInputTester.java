@@ -25,7 +25,11 @@ class AudioInputTester extends AudioStreamTester{
         super();
         Log.i(TapToToneActivity.TAG, "create OboeAudioStream ---------");
 
-        mCurrentAudioStream = new OboeAudioInputStream();
+        if (TestAudioActivity.isUseJavaInterface()) {
+            mCurrentAudioStream = new JavaAudioInputStream();
+        } else {
+            mCurrentAudioStream = new OboeAudioInputStream();
+        }
         requestedConfiguration.setDirection(StreamConfiguration.DIRECTION_INPUT);
     }
 
@@ -36,5 +40,17 @@ class AudioInputTester extends AudioStreamTester{
         return mInstance;
     }
 
+    public static synchronized void release() {
+        mInstance = null;
+    }
+
     public native double getPeakLevel(int i);
+
+    public double getPeakLevelWrapper(int i) {
+        if (TestAudioActivity.isUseJavaInterface()) {
+            return AudioContext.getInstance().getCurrentActivity().getPeakLevel(i);
+        } else {
+            return getPeakLevel(i);
+        }
+    }
 }

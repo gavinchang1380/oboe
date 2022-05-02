@@ -26,7 +26,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class BufferSizeView extends LinearLayout {
-    private OboeAudioStream mStream;
+    private AudioStreamBase mStream;
 
     private static final int FADER_THRESHOLD_MAX = 1000; // must match layout
     private static final int USE_FADER = -1;
@@ -137,7 +137,7 @@ public class BufferSizeView extends LinearLayout {
     }
 
     // sets mStream, mCachedCapacity and mFramesPerBurst
-    public void onStreamOpened(OboeAudioStream stream) {
+    public void onStreamOpened(AudioStreamBase stream) {
         mStream = stream;
         if (mStream != null) {
             int capacity = mStream.getBufferCapacityInFrames();

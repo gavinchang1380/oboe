@@ -195,6 +195,9 @@ public class MainActivity extends BaseOboeTesterActivity {
         mWorkaroundsCheckBox.setChecked(NativeEngine.areWorkaroundsEnabled());
         processBundleFromIntent();
         registerScoStateReceiver();
+
+        CheckBox cb = findViewById(R.id.useJavaInterface);
+        TestAudioActivity.setUseJavaInterface(cb.isChecked());
     }
 
     @Override
@@ -236,6 +239,11 @@ public class MainActivity extends BaseOboeTesterActivity {
     }
 
     public void onLaunchRoundTripLatency(View view) {
+        CheckBox cb = findViewById(R.id.useJavaInterface);
+        if (cb.isChecked()) {
+            showErrorToast("Java接口不能启动该测试");
+            return;
+        }
         launchTestThatDoesRecording(RoundTripLatencyActivity.class);
     }
 
@@ -294,6 +302,7 @@ public class MainActivity extends BaseOboeTesterActivity {
             mCallbackSizeEditor.setText("0");
         }
         OboeAudioStream.setCallbackSize(callbackSize);
+        AudioContext.getInstance().setCallbackSize(callbackSize);
     }
 
     public void onSetSpeakerphoneOn(View view) {
@@ -319,5 +328,10 @@ public class MainActivity extends BaseOboeTesterActivity {
 
     public void onLaunchExternalTapTest(View view) {
         launchTestThatDoesRecording(ExternalTapToToneActivity.class);
+    }
+
+    public void onUseJavaInterfaceClicked(View view) {
+        CheckBox checkBox = (CheckBox) view;
+        TestAudioActivity.setUseJavaInterface(checkBox.isChecked());
     }
 }

@@ -34,7 +34,7 @@ abstract class OboeAudioStream extends AudioStreamBase {
         }
     }
 
-    public native int stopPlaybackNative();
+    private native int stopPlaybackNative();
 
     @Override
     public void startPlayback() throws IOException {
@@ -44,7 +44,7 @@ abstract class OboeAudioStream extends AudioStreamBase {
         }
     }
 
-    public native int startPlaybackNative();
+    private native int startPlaybackNative();
 
     // Write disabled because the synth is in native code.
     @Override
@@ -125,7 +125,7 @@ abstract class OboeAudioStream extends AudioStreamBase {
             streamIndex = INVALID_STREAM_INDEX;
         }
     }
-    public native void close(int streamIndex);
+    private native void close(int streamIndex);
 
     @Override
     public int getBufferCapacityInFrames() {
@@ -150,71 +150,73 @@ abstract class OboeAudioStream extends AudioStreamBase {
     }
     private native int setBufferSizeInFrames(int streamIndex, int thresholdFrames);
 
-    public int getNativeApi() {
+    private int getNativeApi() {
         return getNativeApi(streamIndex);
     }
-    public native int getNativeApi(int streamIndex);
+    private native int getNativeApi(int streamIndex);
 
     @Override
     public int getFramesPerBurst() {
         return getFramesPerBurst(streamIndex);
     }
-    public native int getFramesPerBurst(int streamIndex);
+    private native int getFramesPerBurst(int streamIndex);
 
-    public int getSharingMode() {
+    private int getSharingMode() {
         return getSharingMode(streamIndex);
     }
-    public native int getSharingMode(int streamIndex);
+    private native int getSharingMode(int streamIndex);
 
-    public int getPerformanceMode() {
+    private int getPerformanceMode() {
         return getPerformanceMode(streamIndex);
     }
-    public native int getPerformanceMode(int streamIndex);
+    private native int getPerformanceMode(int streamIndex);
 
-    public int getInputPreset() {
+    private int getInputPreset() {
         return getInputPreset(streamIndex);
     }
-    public native int getInputPreset(int streamIndex);
+    private native int getInputPreset(int streamIndex);
 
+    @Override
     public int getSampleRate() {
         return getSampleRate(streamIndex);
     }
-    public native int getSampleRate(int streamIndex);
+    private native int getSampleRate(int streamIndex);
 
-    public int getFormat() {
+    private int getFormat() {
         return getFormat(streamIndex);
     }
-    public native int getFormat(int streamIndex);
+    private native int getFormat(int streamIndex);
 
-    public int getUsage() {
+    private int getUsage() {
         return getUsage(streamIndex);
     }
-    public native int getUsage(int streamIndex);
+    private native int getUsage(int streamIndex);
 
-    public int getContentType() {
+    private int getContentType() {
         return getContentType(streamIndex);
     }
-    public native int getContentType(int streamIndex);
+    private native int getContentType(int streamIndex);
 
+    @Override
     public int getChannelCount() {
         return getChannelCount(streamIndex);
     }
-    public native int getChannelCount(int streamIndex);
+    private native int getChannelCount(int streamIndex);
 
-    public int getDeviceId() {
+    private int getDeviceId() {
         return getDeviceId(streamIndex);
     }
-    public native int getDeviceId(int streamIndex);
+    private native int getDeviceId(int streamIndex);
 
-    public int getSessionId() {
+    private int getSessionId() {
         return getSessionId(streamIndex);
     }
-    public native int getSessionId(int streamIndex);
+    private native int getSessionId(int streamIndex);
 
-    public boolean isMMap() {
+    private boolean isMMap() {
         return isMMap(streamIndex);
     }
-    public native boolean isMMap(int streamIndex);
+    private native boolean isMMap(int streamIndex);
 
     @Override
     public native long getCallbackCount(); // TODO Move to another class?
@@ -223,43 +225,43 @@ abstract class OboeAudioStream extends AudioStreamBase {
     public int getLastErrorCallbackResult() {
         return getLastErrorCallbackResult(streamIndex);
     }
-    public native int getLastErrorCallbackResult(int streamIndex);
+    private native int getLastErrorCallbackResult(int streamIndex);
 
     @Override
     public long getFramesWritten() {
         return getFramesWritten(streamIndex);
     }
-    public native long getFramesWritten(int streamIndex);
+    private native long getFramesWritten(int streamIndex);
 
     @Override
     public long getFramesRead() {
         return getFramesRead(streamIndex);
     }
-    public native long getFramesRead(int streamIndex);
+    private native long getFramesRead(int streamIndex);
 
     @Override
     public int getXRunCount() {
         return getXRunCount(streamIndex);
     }
-    public native int getXRunCount(int streamIndex);
+    private native int getXRunCount(int streamIndex);
 
     @Override
     public double getLatency() {
         return getTimestampLatency(streamIndex);
     }
-    public native double getTimestampLatency(int streamIndex);
+    private native double getTimestampLatency(int streamIndex);
 
     @Override
     public double getCpuLoad() {
         return getCpuLoad(streamIndex);
     }
-    public native double getCpuLoad(int streamIndex);
+    private native double getCpuLoad(int streamIndex);
 
     @Override
     public String getCallbackTimeStr() {
         return getCallbackTimeString();
     }
-    public native String getCallbackTimeString();
+    private native String getCallbackTimeString();
 
     @Override
     public native void setWorkload(double workload);
@@ -268,7 +270,7 @@ abstract class OboeAudioStream extends AudioStreamBase {
     public int getState() {
         return getState(streamIndex);
     }
-    public native int getState(int streamIndex);
+    private native int getState(int streamIndex);
 
     public static native void setCallbackReturnStop(boolean b);
 

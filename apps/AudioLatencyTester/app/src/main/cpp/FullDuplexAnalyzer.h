@@ -29,7 +29,7 @@ class FullDuplexAnalyzer : public FullDuplexStream {
 public:
     FullDuplexAnalyzer(LoopbackProcessor *processor)
             : mLoopbackProcessor(processor) {
-        setMNumInputBurstsCushion(1);
+        setMNumInputBurstsCushion(0);
     }
 
     /**

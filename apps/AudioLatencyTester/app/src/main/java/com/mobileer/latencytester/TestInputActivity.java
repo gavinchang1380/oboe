@@ -96,7 +96,7 @@ public class TestInputActivity  extends TestAudioActivity {
         }
         for (int i = 0; i < numChannels; i++) {
             if (mVolumeBars[i] == null) break;
-            double level = mAudioInputTester.getPeakLevel(i);
+            double level = mAudioInputTester.getPeakLevelWrapper(i);
             mVolumeBars[i].setAmplitude((float) level);
         }
     }
