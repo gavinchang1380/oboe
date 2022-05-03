@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 
 abstract class ActivityContext implements Runnable {
+    public final static String TAG = "ActivityContext";
     short[] bufferShort;
     float[] bufferFloat;
     float[] bufferFloatOneChannel;

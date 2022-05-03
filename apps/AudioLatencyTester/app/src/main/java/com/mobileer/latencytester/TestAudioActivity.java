@@ -17,11 +17,15 @@
 package com.mobileer.latencytester;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
@@ -39,8 +43,9 @@ import java.util.ArrayList;
 abstract class TestAudioActivity extends Activity {
     public static final String TAG = "OboeTester";
 
+    public static final long POLL_DURATION_MILLIS = 1;
     protected static final int FADER_PROGRESS_MAX = 1000;
-
+    private AudioManager mAudioManager;
     public static final int AUDIO_STATE_OPEN = 0;
     public static final int AUDIO_STATE_STARTED = 1;
     public static final int AUDIO_STATE_PAUSED = 2;
@@ -78,6 +83,18 @@ abstract class TestAudioActivity extends Activity {
     private int mSingleTestIndex = -1;
     private static boolean mBackgroundEnabled;
     private static boolean mUseJavaInterface;
+    private static boolean mBluetoothSco;
+    private static int mBluetoothScoState = 0;
+    private static HandlerThread mHandlerThread = new HandlerThread("ht");
+    private static Handler mHandlerThreadHandler;
+
+    private static BroadcastReceiver mScoStateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int state = intent.getIntExtra(AudioManager.EXTRA_SCO_AUDIO_STATE, -1);
+            mBluetoothScoState = state;
+        }
+    };
 
     public String getTestName() {
         return "TestAudio";
@@ -162,6 +179,12 @@ abstract class TestAudioActivity extends Activity {
     public static boolean isUseJavaInterface() {
         return mUseJavaInterface;
     }
+    public static void setBluetoothSco(boolean bluetoothSco) {
+        mBluetoothSco = bluetoothSco;
+    }
+    public static boolean isBluetoothSco() {
+        return mBluetoothSco;
+    }
 
     public void onStreamClosed() {
     }
@@ -171,11 +194,20 @@ abstract class TestAudioActivity extends Activity {
     void updateStreamDisplay() {
     }
 
+    static {
+        mHandlerThread.start();
+        mHandlerThreadHandler = new Handler(mHandlerThread.getLooper());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         inflateActivity();
         findAudioCommon();
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+        registerReceiver(mScoStateReceiver,
+                new IntentFilter(AudioManager.ACTION_SCO_AUDIO_STATE_UPDATED), null, mHandlerThreadHandler);
     }
 
     public void hideSettingsViews() {
@@ -223,6 +255,7 @@ abstract class TestAudioActivity extends Activity {
         mAudioState = AUDIO_STATE_CLOSED;
         AudioInputTester.release();
         AudioOutputTester.release();
+        unregisterReceiver(mScoStateReceiver);
         super.onDestroy();
     }
 
@@ -377,6 +410,7 @@ abstract class TestAudioActivity extends Activity {
 
     public void openAudio(View view) {
         try {
+            preOpenAudio();
             openAudio();
         } catch (Exception e) {
             showErrorToast(e.getMessage());
@@ -413,6 +447,7 @@ abstract class TestAudioActivity extends Activity {
 
     public void closeAudio(View view) {
         closeAudio();
+        postCloseAudio();
     }
 
     public int getSampleRate() {
@@ -421,6 +456,29 @@ abstract class TestAudioActivity extends Activity {
 
     public boolean isTestConfiguredUsingBundle() {
         return false;
+    }
+
+    public void preOpenAudio() {
+        if (isBluetoothSco()) {
+            Log.d(TAG, "[Benchmark]To start bluetoothSco");
+            mAudioManager.startBluetoothSco();
+            while (mBluetoothScoState != AudioManager.SCO_AUDIO_STATE_CONNECTED) {
+                try {
+                    Thread.sleep(POLL_DURATION_MILLIS);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            Log.d(TAG, "[Benchmark]bluetoothSco started");
+        }
+    }
+
+    public void postCloseAudio() {
+        if (isBluetoothSco()) {
+            Log.d(TAG, "[Benchmark]To stop bluetoothSco");
+            mAudioManager.stopBluetoothSco();
+            Log.d(TAG, "[Benchmark]bluetoothSco stoped");
+        }
     }
 
     public void openAudio() throws IOException {

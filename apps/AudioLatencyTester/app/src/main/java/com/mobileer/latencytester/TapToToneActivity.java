@@ -275,6 +275,7 @@ public class TapToToneActivity extends TestOutputActivityBase {
 
     public void startTest(View view) {
         try {
+            preOpenAudio();
             openAudio();
         } catch (IOException e) {
             e.printStackTrace();
@@ -297,6 +298,7 @@ public class TapToToneActivity extends TestOutputActivityBase {
         mTapToToneTester.stop();
         stopAudio();
         closeAudio();
+        postCloseAudio();
         updateButtons(false);
     }
 }

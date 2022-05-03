@@ -274,6 +274,11 @@ public class TestInputColdActivity extends TestAudioActivity {
             StringBuilder sb = new StringBuilder();
             long startMillis = System.currentTimeMillis();
 
+            if (isBluetoothSco()) {
+                preOpenAudio();
+                sb.append("Sco connected at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+            }
+
             openAudio();
             sb.append("Opened at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
 
@@ -308,6 +313,7 @@ public class TestInputColdActivity extends TestAudioActivity {
     private void closeTest() {
         stopAudio();
         closeAudio();
+        postCloseAudio();
         mHelpView.setText("等待硬件关闭");
         mHandler.postDelayed(this::enableTest, ENABLE_TEST_MSEC);
     }

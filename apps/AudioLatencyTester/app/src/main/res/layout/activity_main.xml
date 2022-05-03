@@ -244,7 +244,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/setSpeakerphoneOn"
         app:layout_constraintTop_toBottomOf="@+id/setSpeakerphoneOn"
         >
@@ -255,8 +254,7 @@
             android:layout_marginTop="6dp"
             android:checked="false"
             android:onClick="onStartStopBluetoothSco"
-            android:text="start/stopBluetoothSco()"
-            />
+            android:text="测试前启动SCO" />
 
         <TextView
             android:id="@+id/textBluetoothScoStatus"
@@ -264,7 +262,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="12sp"
-            android:text="\?" />
+            android:text="\?"
+            android:visibility="gone" />
     </LinearLayout>
 
     <CheckBox

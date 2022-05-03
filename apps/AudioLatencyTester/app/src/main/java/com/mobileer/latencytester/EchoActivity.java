@@ -182,6 +182,7 @@ public class EchoActivity extends TestInputActivity {
     }
 
     public void onStartEcho(View view)  throws IOException {
+        preOpenAudio();
         openAudio();
         startAudio();
         setDelayTime(mDelayTime);
@@ -195,6 +196,7 @@ public class EchoActivity extends TestInputActivity {
         mNativeSniffer.stopSniffer();
         stopAudio();
         closeAudio();
+        postCloseAudio();
         mStartButton.setEnabled(true);
         mStopButton.setEnabled(false);
         keepScreenOn(false);

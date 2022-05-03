@@ -118,6 +118,7 @@ public class TestInputActivity  extends TestAudioActivity {
     @Override
     public void openAudio(View view) {
         try {
+            preOpenAudio();
             openAudio();
         } catch (Exception e) {
             showErrorToast(e.getMessage());
@@ -134,6 +135,7 @@ public class TestInputActivity  extends TestAudioActivity {
     @Override
     public void stopAudio() {
         super.stopAudio();
+        postCloseAudio();
         resetVolumeBars();
     }
 

@@ -194,15 +194,18 @@ public class MainActivity extends BaseOboeTesterActivity {
         super.onResume();
         mWorkaroundsCheckBox.setChecked(NativeEngine.areWorkaroundsEnabled());
         processBundleFromIntent();
-        registerScoStateReceiver();
+//        registerScoStateReceiver();
 
-        CheckBox cb = findViewById(R.id.useJavaInterface);
-        TestAudioActivity.setUseJavaInterface(cb.isChecked());
+        CheckBox cbJavaIntf = findViewById(R.id.useJavaInterface);
+        TestAudioActivity.setUseJavaInterface(cbJavaIntf.isChecked());
+
+        CheckBox cbSco = findViewById(R.id.setBluetoothScoOn);
+        TestAudioActivity.setBluetoothSco(cbSco.isChecked());
     }
 
     @Override
     public void onPause(){
-        unregisterScoStateReceiver();
+//        unregisterScoStateReceiver();
         super.onPause();
     }
 
@@ -314,12 +317,7 @@ public class MainActivity extends BaseOboeTesterActivity {
 
     public void onStartStopBluetoothSco(View view) {
         CheckBox checkBox = (CheckBox) view;
-        AudioManager myAudioMgr = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        if (checkBox.isChecked()) {
-            myAudioMgr.startBluetoothSco();
-        } else {
-            myAudioMgr.stopBluetoothSco();
-        }
+        TestAudioActivity.setBluetoothSco(checkBox.isChecked());
     }
 
     public void onLaunchTestInputCold(View view) {

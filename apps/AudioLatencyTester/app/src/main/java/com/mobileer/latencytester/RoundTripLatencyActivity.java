@@ -437,6 +437,7 @@ public class RoundTripLatencyActivity extends AnalyzerActivity {
 
     private void measureSingleLatency() {
         try {
+            preOpenAudio();
             openAudio();
             if (mBufferBursts >= 0) {
                 AudioStreamBase stream = mAudioOutTester.getCurrentAudioStream();
@@ -469,6 +470,7 @@ public class RoundTripLatencyActivity extends AnalyzerActivity {
         mLatencySniffer.stopSniffer();
         stopAudio();
         closeAudio();
+        postCloseAudio();
         updateButtons(false);
     }
 
