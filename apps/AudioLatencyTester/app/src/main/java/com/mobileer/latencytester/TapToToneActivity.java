@@ -71,7 +71,7 @@ public class TapToToneActivity extends TestOutputActivityBase {
         mAudioOutTester = addAudioOutputTester();
 
         mTapToToneTester = new TapToToneTester(this,
-                getResources().getString(R.string.tap_to_tone_instructions));
+                getResources().getString(R.string.tap_to_tone_instructions), 1.2f);
 
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_MIDI)) {
             setupMidi();

@@ -27,7 +27,7 @@
 class FullDuplexEcho : public FullDuplexStream {
 public:
     FullDuplexEcho() {
-        setMNumInputBurstsCushion(0);
+        setMNumInputBurstsCushion(1);
     }
 
     /**

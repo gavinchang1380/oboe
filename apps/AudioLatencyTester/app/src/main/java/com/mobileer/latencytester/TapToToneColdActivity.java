@@ -255,20 +255,28 @@ public class TapToToneColdActivity extends TestOutputActivityBase {
         try {
             StringBuilder sb = new StringBuilder();
             long startMillis = System.currentTimeMillis();
+            long endMillis;
 
             if (isBluetoothSco()) {
                 preOpenAudio();
-                sb.append("Sco connected at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+                endMillis = System.currentTimeMillis();
+                sb.append("Sco connected: " + (endMillis - startMillis) + "ms\n");
+                startMillis = endMillis;
+            } else {
+                sb.append("Sco connected: 0ms\n");
             }
 
             openAudio();
-            sb.append("Opened at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+            endMillis = System.currentTimeMillis();
+            sb.append("Open time: " + (endMillis - startMillis) + "ms\n");
+            startMillis = endMillis;
 
             startAudio();
             while (mAudioOutTester.getCurrentAudioStream().getState() == StreamConfiguration.STREAM_STATE_STARTING) {
                 Thread.sleep(POLL_DURATION_MILLIS);
             }
-            sb.append("Started at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+            endMillis = System.currentTimeMillis();
+            sb.append("Start time: " + (endMillis - startMillis) + "ms\n");
 
             mColdTimeView.setText(sb.toString());
         } catch (IOException | InterruptedException e) {

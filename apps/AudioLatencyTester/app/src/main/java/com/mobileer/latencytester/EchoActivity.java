@@ -61,6 +61,8 @@ public class EchoActivity extends TestInputActivity {
         public void onStopTrackingTouch(SeekBar seekBar) {
         }
     };
+    private BufferSizeView mBufferSizeView;
+    private WorkloadView mWorkloadView;
 
     // Periodically query for cold start latency from the native code until it is ready.
     protected class ColdStartSniffer extends NativeSniffer {
@@ -136,12 +138,17 @@ public class EchoActivity extends TestInputActivity {
     }
 
     @Override
+    public AudioOutputTester addAudioOutputTester() {
+        AudioOutputTester audioOutTester = super.addAudioOutputTester();
+        mWorkloadView.setAudioStreamTester(audioOutTester);
+        return audioOutTester;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         updateEnabledWidgets();
-
-        mAudioOutTester = addAudioOutputTester();
 
         mStartButton = (Button) findViewById(R.id.button_start_echo);
         mStopButton = (Button) findViewById(R.id.button_stop_echo);
@@ -158,7 +165,19 @@ public class EchoActivity extends TestInputActivity {
                 100.0);
         mFaderDelayTime.setProgress(0);
 
+        mBufferSizeView = (BufferSizeView) findViewById(R.id.buffer_size_view);
+        mWorkloadView = (WorkloadView) findViewById(R.id.workload_view);
+        mAudioOutTester = addAudioOutputTester();
+
         hideSettingsViews();
+    }
+
+    @Override
+    public void openAudio() throws IOException {
+        super.openAudio();
+        if (mBufferSizeView != null) {
+            mBufferSizeView.onStreamOpened(mAudioOutTester.getCurrentAudioStream());
+        }
     }
 
     private void setDelayTimeByPosition(int progress) {

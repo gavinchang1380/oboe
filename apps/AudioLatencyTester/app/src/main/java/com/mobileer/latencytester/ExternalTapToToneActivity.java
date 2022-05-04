@@ -25,7 +25,7 @@ public class ExternalTapToToneActivity extends Activity {
         setContentView(R.layout.activity_external_tap_to_tone);
 
         mTapToToneTester = new TapToToneTester(this,
-                getResources().getString(R.string.external_tap_instructions));
+                getResources().getString(R.string.external_tap_instructions), 2.2f);
 
         mStartButton = (Button) findViewById(R.id.button_start);
         mStopButton = (Button) findViewById(R.id.button_stop);

@@ -194,7 +194,7 @@ public class MainActivity extends BaseOboeTesterActivity {
         super.onResume();
         mWorkaroundsCheckBox.setChecked(NativeEngine.areWorkaroundsEnabled());
         processBundleFromIntent();
-//        registerScoStateReceiver();
+        registerScoStateReceiver();
 
         CheckBox cbJavaIntf = findViewById(R.id.useJavaInterface);
         TestAudioActivity.setUseJavaInterface(cbJavaIntf.isChecked());
@@ -205,7 +205,7 @@ public class MainActivity extends BaseOboeTesterActivity {
 
     @Override
     public void onPause(){
-//        unregisterScoStateReceiver();
+        unregisterScoStateReceiver();
         super.onPause();
     }
 
@@ -213,8 +213,10 @@ public class MainActivity extends BaseOboeTesterActivity {
         AudioManager myAudioMgr = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         String audioManagerSampleRate = myAudioMgr.getProperty(AudioManager.PROPERTY_OUTPUT_SAMPLE_RATE);
         String audioManagerFramesPerBurst = myAudioMgr.getProperty(AudioManager.PROPERTY_OUTPUT_FRAMES_PER_BUFFER);
-        mDeviceView.setText("Java AudioManager: rate = " + audioManagerSampleRate +
-                ", burst = " + audioManagerFramesPerBurst);
+        mDeviceView.setText("AM采样率: " + audioManagerSampleRate +
+                "\nAM Burst: " + audioManagerFramesPerBurst + "\nProAudio 支持: "
+                + getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUDIO_PRO) + "\nLowLatency 支持: "
+                + getPackageManager().hasSystemFeature(PackageManager.FEATURE_AUDIO_LOW_LATENCY));
     }
 
     public void onLaunchTestOutput(View view) {

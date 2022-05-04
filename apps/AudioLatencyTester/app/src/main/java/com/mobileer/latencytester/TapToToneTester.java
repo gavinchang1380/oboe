@@ -11,11 +11,11 @@ import java.io.IOException;
 public class TapToToneTester {
 
     private static final float MAX_TOUCH_LATENCY = 0.200f;
-    private static final float MAX_OUTPUT_LATENCY = 1.200f;
+    private float MAX_OUTPUT_LATENCY;
     private static final float ANALYSIS_TIME_MARGIN = 0.500f;
 
-    private static final float ANALYSIS_TIME_DELAY = MAX_OUTPUT_LATENCY;
-    private static final float ANALYSIS_TIME_TOTAL = MAX_TOUCH_LATENCY + MAX_OUTPUT_LATENCY;
+    private float ANALYSIS_TIME_DELAY = MAX_OUTPUT_LATENCY;
+    private float ANALYSIS_TIME_TOTAL = MAX_TOUCH_LATENCY + MAX_OUTPUT_LATENCY;
     private static final int ANALYSIS_SAMPLE_RATE = 48000; // need not match output rate
 
     private final boolean mRecordEnabled = true;
@@ -44,7 +44,11 @@ public class TapToToneTester {
         public TapLatencyAnalyser.TapLatencyEvent[] events;
     }
 
-    public TapToToneTester(Activity activity, String tapInstructions) {
+    public TapToToneTester(Activity activity, String tapInstructions, float maxOutputLatency) {
+        MAX_OUTPUT_LATENCY = maxOutputLatency;
+        ANALYSIS_TIME_DELAY = MAX_OUTPUT_LATENCY;
+        ANALYSIS_TIME_TOTAL = MAX_TOUCH_LATENCY + MAX_OUTPUT_LATENCY;
+
         mActivity = activity;
         mTapInstructions = tapInstructions;
         mResultView = (TextView) activity.findViewById(R.id.resultView);
@@ -141,6 +145,7 @@ public class TapToToneTester {
 
     // Runs on UI thread.
     public void showTestResults(TestResult result) {
+        StringBuilder sb = new StringBuilder();
         String text;
         mWaveformView.setMessage(null);
         if (result == null) {
@@ -159,6 +164,11 @@ public class TapToToneTester {
                 mWaveformView.setCursorData(cursors);
             }
             // Did we get a good measurement?
+            if (result.events.length >= 2) {
+                for (int i = 1; i < result.events.length; ++i) {
+                    sb.append("trigger " + i + " and " + (i+1) + " is " + (result.events[i].sampleIndex - result.events[i - 1].sampleIndex) * 1000 / result.frameRate + "ms\n");
+                }
+            }
             if (result.events.length < 2) {
                 text = "Not enough edges. Use fingernail.\n";
             } else if (result.events.length > 2) {
@@ -191,7 +201,7 @@ public class TapToToneTester {
         final String postText = text;
         mWaveformView.post(new Runnable() {
             public void run() {
-                mResultView.setText(postText);
+                mResultView.setText(postText + "\n" + sb.toString());
                 mWaveformView.postInvalidate();
             }
         });

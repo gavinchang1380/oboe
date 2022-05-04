@@ -262,8 +262,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="12sp"
-            android:text="\?"
-            android:visibility="gone" />
+            android:text="\?" />
     </LinearLayout>
 
     <CheckBox
@@ -322,7 +321,7 @@
         android:id="@+id/deviceView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:lines="1"
+        android:lines="4"
         android:text="@string/init_device"
         app:layout_constraintStart_toStartOf="@+id/useJavaInterface"
         app:layout_constraintTop_toBottomOf="@+id/useJavaInterface" />

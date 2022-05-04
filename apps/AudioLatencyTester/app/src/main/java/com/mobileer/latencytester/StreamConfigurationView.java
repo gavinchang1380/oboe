@@ -181,11 +181,13 @@ public class StreamConfigurationView extends LinearLayout {
 
         mActualSampleRateView = (TextView) findViewById(R.id.actualSampleRate);
         mSampleRateSpinner = (Spinner) findViewById(R.id.spinnerSampleRate);
+        mSampleRateSpinner.setSelection(9);
         mActualChannelCountView = (TextView) findViewById(R.id.actualChannelCount);
         mChannelCountSpinner = (Spinner) findViewById(R.id.spinnerChannelCount);
         mActualFormatView = (TextView) findViewById(R.id.actualAudioFormat);
         mFormatSpinner = (Spinner) findViewById(R.id.spinnerFormat);
         mRateConversionQualitySpinner = (Spinner) findViewById(R.id.spinnerSRCQuality);
+        mRateConversionQualitySpinner.setSelection(1);
 
         mActualPerformanceView = (TextView) findViewById(R.id.actualPerformanceMode);
         mPerformanceSpinner = (Spinner) findViewById(R.id.spinnerPerformanceMode);
@@ -206,6 +208,11 @@ public class StreamConfigurationView extends LinearLayout {
         mUsageTableRow = (TableRow) findViewById(R.id.rowUsage);
         mActualUsageView = (TextView) findViewById(R.id.actualUsage);
         mUsageSpinner = (Spinner) findViewById(R.id.spinnerUsage);
+        if (TestAudioActivity.isBluetoothSco()) {
+            mUsageSpinner.setSelection(2);
+        } else {
+            mUsageSpinner.setSelection(0);
+        }
 
         mContentTypeTableRow = (TableRow) findViewById(R.id.rowContentType);
         mActualContentTypeView = (TextView) findViewById(R.id.actualContentType);

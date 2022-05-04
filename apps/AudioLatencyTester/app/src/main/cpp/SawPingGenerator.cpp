@@ -45,6 +45,7 @@ int32_t SawPingGenerator::onProcess(int numFrames) {
         mPhase = -1.0f;
         mLevel = 1.0;
         mAcknowledgeCount++;
+        mRetainTime = 4800;
     }
 
     // Check level to prevent numeric underflow.
@@ -52,7 +53,11 @@ int32_t SawPingGenerator::onProcess(int numFrames) {
         for (int i = 0; i < numFrames; i++) {
             float sawtooth = incrementPhase(frequencies[i]);
             *buffer++ = (float) (sawtooth * mLevel * amplitudes[i]);
-            mLevel *= 0.999;
+            if (mRetainTime) {
+                mRetainTime--;
+            } else {
+                mLevel *= 0.999;
+            }
         }
     } else {
         for (int i = 0; i < numFrames; i++) {

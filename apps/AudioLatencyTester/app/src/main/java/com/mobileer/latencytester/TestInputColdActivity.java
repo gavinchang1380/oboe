@@ -273,28 +273,39 @@ public class TestInputColdActivity extends TestAudioActivity {
         try {
             StringBuilder sb = new StringBuilder();
             long startMillis = System.currentTimeMillis();
+            long startMillisOrig = startMillis;
+            long endMillis;
 
             if (isBluetoothSco()) {
                 preOpenAudio();
-                sb.append("Sco connected at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+                endMillis = System.currentTimeMillis();
+                sb.append("Sco connected: " + (endMillis - startMillis) + "ms\n");
+                startMillis = endMillis;
+            } else {
+                sb.append("Sco connected: 0ms\n");
             }
 
             openAudio();
-            sb.append("Opened at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+            endMillis = System.currentTimeMillis();
+            sb.append("Open time: " + (endMillis - startMillis) + "ms\n");
+            startMillis = endMillis;
 
             startAudio();
             while (mAudioInputTester.getCurrentAudioStream().getState() == StreamConfiguration.STREAM_STATE_STARTING) {
                 Thread.sleep(POLL_DURATION_MILLIS);
             }
-            sb.append("Started at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+            endMillis = System.currentTimeMillis();
+            sb.append("Start time: " + (endMillis - startMillis) + "ms\n");
+            startMillis = endMillis;
 
             while (mAudioInputTester.getPeakLevelWrapper(0) < 0.2 && mAudioInputTester.getPeakLevelWrapper(1) < 0.2 && (System.currentTimeMillis() - startMillis) <= 1000) {  // -26dB
                 Thread.sleep(POLL_DURATION_MILLIS);
             }
-            if (System.currentTimeMillis() - startMillis > 1000) {
-                sb.append("Timout! Don't get -14dB signal!");
+            endMillis = System.currentTimeMillis();
+            if (endMillis - startMillis > 1000) {
+                sb.insert(0, "Timout! Don't get -14dB signal!\n");
             } else {
-                sb.append("Get -14dB signal at ").append(System.currentTimeMillis() - startMillis).append("ms\n");
+                sb.insert(0, "Total time: " + (endMillis - startMillisOrig) + "ms\n");
             }
 
             mColdTimeView.setText(sb.toString());
